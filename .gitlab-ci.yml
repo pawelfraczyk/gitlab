@@ -25,5 +25,6 @@ test website:
   script:
     - yarn install
     - yarn global add gatsby-cli
-    - gatsby serve
+    - gatsby serve &
+    - sleep 3
     - curl "http://localhost:9000" | grep -q "Gatsby"
