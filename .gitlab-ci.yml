@@ -83,7 +83,6 @@ production tests:
     - schedules
 
 update cache:
-  stage: cache
   script:
     - yarn install
   cache:
