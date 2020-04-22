@@ -6,12 +6,12 @@ stages:
   - deploy
   - deployment tests
 
-  cache: 
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
+cache: 
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
 
-  build website:
+build website:
   stage: build
   script:
     - echo $CI_COMMIT_SHORT_SHA
