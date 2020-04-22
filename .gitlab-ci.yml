@@ -4,3 +4,6 @@ build website:
     - yarn install
     - yarn global add gatsby-cli
     - gatsby build
+  artifacts:
+    paths:
+      - ./public
