@@ -1,4 +1,5 @@
 build website:
+  image: node
   script:
     - yarn install
     - yarn global add gatsby-cli
