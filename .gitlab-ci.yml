@@ -8,9 +8,11 @@ stages:
 build website:
   stage: build
   script:
+    - echo $CI_COMMIT_SHORT_SHA
     - yarn install
     - yarn global add gatsby-cli
     - gatsby build
+    - sed -i "s/%%VERSION%%/$CI_COMMIT_SHA/" ./public/index.html
   artifacts:
     paths:
       - ./public
