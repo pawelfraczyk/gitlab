@@ -1,0 +1,5 @@
+build website:
+  script:
+    - yarn install
+    - yarn global add gatsby-cli
+    - gatsby build
