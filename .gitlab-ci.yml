@@ -1,4 +1,4 @@
-image: node:10
+image: node:alpine
 
 stages:
   - build
@@ -69,6 +69,8 @@ deploy production:
   environment:
     name: production
     url: http://$PRODUCTION_DOMAIN
+  when: manual
+  allow_failure: false
   script:
     - yarn global add surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
