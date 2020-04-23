@@ -3,6 +3,7 @@ image: node
 stages:
   - build
   - test
+  - deploy review
   - deploy staging
   - deploy production
   - production tests
@@ -51,12 +52,23 @@ test website:
   except:
     - schedules
 
+deploy review:
+  stage: deploy review
+  only:
+    - merge requests
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: https://pozi-$CI_ENVIRONMENT_SLUG.surge.sh
+  script:
+    - yarn global add surge
+    - surge --project ./public --domain pozi-$CI_ENVIRONMENT_SLUG.surge.sh
+
 deploy staging:
   stage: deploy staging
   cache: {}
   environment:
     name: staging
-    url: http://$STAGING_DOMAIN
+    url: https://$STAGING_DOMAIN
   only:
     - master
   script:
@@ -70,7 +82,7 @@ deploy production:
   cache: {}
   environment:
     name: production
-    url: http://$PRODUCTION_DOMAIN
+    url: https://$PRODUCTION_DOMAIN
   when: manual
   allow_failure: false
   only:
