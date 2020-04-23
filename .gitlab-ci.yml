@@ -64,13 +64,14 @@ test website:
 deploy review:
   stage: deploy review
   only:
-    - merge requests
+    - merge_requests
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: https://pozi-$CI_ENVIRONMENT_SLUG.surge.sh
     on_stop: stop review
-  script:
+  before_script:
     - yarn global add surge
+  script:
     - surge --project ./public --domain pozi-$CI_ENVIRONMENT_SLUG.surge.sh
 
 stop review:
