@@ -88,37 +88,35 @@ stop review:
     name: review/$CI_COMMIT_REF_NAME
     action: stop
 
-.deploy_template:
+.deploy_template: &deploy
   cache: {}
   only:
     - master
+  environment:
+    url: https://$DOMAIN
   script:
     - yarn global add surge
-    - surge --project ./public --domain $STAGING_DOMAIN
+    - surge --project ./public --domain $DOMAIN
   except:
     - schedules
 
 deploy staging:
+  <<: *deploy
   stage: deploy staging
-
+  variables:
+    DOMAIN: $STAGING_DOMAIN
   environment:
     name: staging
-    url: https://$STAGING_DOMAIN
-
-
 
 deploy production:
+  <<: *deploy
   stage: deploy production
+  variables:
+    DOMAIN: $PRODUCTION_DOMAIN
   environment:
     name: production
-    url: https://$PRODUCTION_DOMAIN
   when: manual
   allow_failure: false
-  script:
-    - yarn global add surge
-    - surge --project ./public --domain $PRODUCTION_DOMAIN
-  except:
-    - schedules
 
 production tests:
   image: alpine
