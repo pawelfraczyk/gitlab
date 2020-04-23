@@ -20,6 +20,9 @@ variables:
 
 build website:
   stage: build
+  only:
+    - master
+    - merge_requests
   script:
     - echo $CI_COMMIT_SHORT_SHA
     - yarn install
@@ -34,6 +37,9 @@ build website:
 
 test artifact:
   image: alpine
+  only:
+    - master
+    - merge_requests
   cache: {}
   stage: test
   script:
@@ -43,6 +49,9 @@ test artifact:
 
 test website:
   stage: test
+  only:
+    - master
+    - merge_requests
   script:
     - yarn install
     - yarn global add gatsby-cli
