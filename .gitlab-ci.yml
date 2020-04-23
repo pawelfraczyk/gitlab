@@ -111,6 +111,8 @@ deploy production:
   allow_failure: false
   only:
     - master
+  before_script:
+    - echo "Deploying to production"
   script:
     - yarn global add surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
